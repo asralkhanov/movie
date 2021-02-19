@@ -1,0 +1,629 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+<!-- single -->
+<div class="single-page-agile-main">
+<div class="container">
+		<!-- /w3l-medile-movies-grids -->
+			<div class="agileits-single-top">
+				<ol class="breadcrumb">
+				  <li><a href="{% url 'movie:movies_list' %}">Bosh sahifa</a></li>
+				  <li class="active">{{ movie.title.upper }}  haqida</li>
+				</ol>
+			</div>
+			<div class="single-page-agile-info">
+                   <!-- /movie-browse-agile -->
+                   {% if messages %}
+                   	{% for message in messages %}
+                   	<div class="alert alert-danger">
+                   		<h1>{{message}}</h1>
+                   	</div>
+                   	{% endfor %}
+                   {% endif %}
+              <div class="show-top-grids-w3lagile">
+              	<!--<div class="col-sm-3 single-left">
+              	
+              	</div>-->
+              	<div class="row">
+				<div class="col-sm-8 ">
+					<div class="song">
+						<div class="song-info">
+							<h1 style="padding:10px;">{{ movie.title.upper }}</h1>	
+					</div>
+						<div class="video-grid-single-page-agileits" style="width:90%; height:auto;" >
+							<div data-video="dLmKio67pVQ" id="video"> 
+							<img src="{{movie.poster.url}}" alt="" class="img-responsive" /> </div>
+						</div>
+					</div>
+					<div class="song-grid-right">
+						<h2 class="mt-2">Film haqida</h2>
+						<br>
+						<h4 class="mt-2">
+							{% autoescape off %}
+							{{movie.desc|linebreaks}}
+							{% endautoescape%}
+							<p>
+								<script async src="https://telegram.org/js/telegram-widget.js?14" data-telegram-share-url="https://onemovie.uz/{{movie.slug}}" data-size="large"></script>
+								<!-- Load Facebook SDK for JavaScript -->
+								<div id="fb-root"></div>
+								<script>(function(d, s, id) {
+								var js, fjs = d.getElementsByTagName(s)[0];
+								if (d.getElementById(id)) return;
+								js = d.createElement(s); js.id = id;
+								js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+								fjs.parentNode.insertBefore(js, fjs);
+								}(document, 'script', 'facebook-jssdk'));</script>
+
+								<!-- Your share button code -->
+								<div class="fb-share-button" 
+								data-href="https://onemovie.uz/{{movie.slug}}" 
+								data-layout="button_count">
+				
+								</div>
+
+
+	
+						  <!-- Rating Stars Box -->
+						  <div class='rating-stars text-center'>
+						    <ul id='stars'>
+						      <li class='star' title='Poor' data-value='1'>
+						        <i class='fa fa-star fa-fw'></i>
+						      </li>
+						      <li class='star' title='Fair' data-value='2'>
+						        <i class='fa fa-star fa-fw'></i>
+						      </li>
+						      <li class='star' title='Good' data-value='3'>
+						        <i class='fa fa-star fa-fw'></i>
+						      </li>
+						      <li class='star' title='Excellent' data-value='4'>
+						        <i class='fa fa-star fa-fw'></i>
+						      </li>
+						      <li class='star' title='WOW!!!' data-value='5'>
+						        <i class='fa fa-star fa-fw'></i>
+						      </li>
+						    </ul>
+						  </div>
+						  
+						  <div class='success-box' style="background-color:none;">
+						    <div class='clearfix'></div>
+						   
+						    <div class='text-message'></div>
+						    <div class='clearfix'></div>
+						  </div>
+					
+
+
+					<div id="like-section-{{ movie.id }}">
+			 		Like <span id="total_likes">{{ movie.likes.all.count }}
+			 		</span>
+					
+					    <button type="submit" name="product_id" value="{{ movie.id }}"  onclick="AddLikes({{ movie.id }})" id="like_button"
+						class="btn btn-like {% if not is_liked %} btn-danger{% else %} btn-primary{% endif %}">{% if is_liked %} Like{% else %} Dislike {% endif %}
+						</button>				
+				
+					</div>
+					
+					<div class="clearfix"> </div>
+				<script>
+		              function AddLikes(movie_id){
+		                  if (window.XMLHttpRequest){
+		                    // code for IE7+, Firefox, Chrome, Opera, Safari
+		                    xmlhttp=new XMLHttpRequest();
+		                  } else {  // code for IE6, IE5
+		                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		                  }
+		                  xmlhttp.onreadystatechange=function() {
+		                    if (this.readyState==4 && this.status==200) {
+		                    var data = JSON.parse(this.responseText);
+		                    console.log(data);
+		                    if (data.status == 'like'){
+
+		                    	
+		           var btn = document.getElementById("like_button");
+		                 btn.className = "btn btn-like btn-primary";
+		                     	btn.innerHTML = "Like";
+		                    }
+		                    else{
+		                    	
+		           var btn = document.getElementById("like_button");
+		                   btn.className = "btn btn-like btn-danger";
+		                     btn.innerHTML = "Dislike";
+		                    
+		                    	} 
+
+		                    document.getElementById('total_likes').innerHTML = data.total_likes                  
+		                    }
+		                  }
+		                  var url = "{% url 'movie:likes' %}";
+		                  var url = url+"?data="+movie_id;
+
+		                  xmlhttp.open("GET",url,true);
+		                  xmlhttp.send();
+                }
+              </script>
+					</div>
+						</h4>
+					</div>
+				<style>
+					.shoot img{
+						width: 55%;
+						height: auto;
+						padding: 10px;
+					}
+					.actor{
+						width: 100%;
+						height: auto;
+
+					}
+				</style>
+				<div class="clearfix"> </div>
+
+				
+
+<style>
+.rating{
+	justify-content: left;
+	align-items: left;
+	display: flex;
+	flex-direction: auto;
+	background: #f7f7f7;
+	padding: 10px;
+}
+.rating h3{
+	float: left;
+	align-items: center;
+	justify-content: center;
+	padding-top: 25px;
+	padding-left: 15px;
+}
+.rating img{
+	width: 70px;
+	height: auto;
+	padding-top: 5px;
+}
+.rating_nums{
+	font-size: 55px;
+}
+</style>
+				<div class="clearfix"> </div>
+
+
+
+
+
+				<h3 >Aktyorlar	</h3>
+				<div class="lead" style="margin-top:15px;">
+					{% for actor in movie.actors.all %}
+						<div class="col-sm-4">
+							<h4>{{actor.name}}</h4>
+	
+							<br>
+							<img src="{{actor.image.url}}" alt="" class="actor">
+							<br>
+						</div>
+					{% endfor %}
+				</div>
+				<div class="clearfix"> </div>
+								<div class="media-grids">
+								<h3 >Filmdan kadrlar	</h3>
+
+								<div class="lead">
+									{% for shoots in movie.movie_shots_set.all|slice:":3" %}
+									
+									<div class="col-sm-6">
+										<a href="{{shoots.image.url}}" class="shoot">
+										<img src="{{shoots.image.url}}" style="width:100%; float:right;" alt="{{shoots.title}}">
+									</a>
+									</div>
+									{% endfor %}
+								</div>						
+							</div>
+				
+						<div class="clearfix"> </div>
+					<div class="all-comments">
+						<div class="all-comments-info">
+							<a href="#">Muhokamalar</a>
+							<div class="agile-info-wthree-box">
+					
+							<form action="{% url 'movie:addcomment_view' movie.id %}" method="POST" id="formReview">
+									<input type="text" name="name" placeholder="Ism" required="">	
+									{% csrf_token %}            					   <br>
+									<input type="hidden" name="parent" id="contactparent" value=""> 
+									<input type="text" name="email" placeholder="Email" required="">
+									<textarea placeholder="Xabar" name="message" required="" id="contactname"></textarea>
+									<input type="submit" value="Yuborish">
+									<div class="clearfix"> </div>
+									
+								</form>
+							</div>
+						</div>
+	<script>
+		function AddReview(name, id) {
+			document.getElementById('contactparent').value = id;
+			document.getElementById('contactname').innerHTML = `${name} ,`;
+			console.log(id)
+			console.log(name)
+		}
+	</script>
+						<div class="media-grids">
+							{% for comment in movie.movie_comments.all|slice:"10" %}
+							<div class="media">
+								<h5>{{comment.name}}</h5>
+								<div class="media-left">
+									<a href="#">
+										<img src="/static/images/user.jpg" title="One movies" alt=" " />
+									</a>
+								</div>
+								<div class="media-body">
+									<p>{{comment.message}}</p>
+									<span>View all posts by :<a href="#"> Admin </a></span>
+								</div>
+							<div class="lead" style="float:right;">				
+								<p>
+								 <a href="#formReview" class="btn btn-outline" onclick="AddReview('{{comment.name}}','{{comment.id}}')">
+											<i class="fa fa-reply"></i>				Javob berish
+									</a>
+								</p>								
+							</div>
+							</div>
+							{% endfor %}
+						</div>
+						</div>
+				<div class="clearfix"> </div>
+
+</div>
+				
+				<div class="col-md-4">
+						<div class="news-right-top">
+							<div class="wthree-news-right-heading">
+								<h3>Film haqida</h3>
+							</div>
+							<div class="single-grid-right">
+								
+							</div>
+							<div class="wthree-news-right-top">
+								<div class="news-grids-bottom">
+						<div class="w3ls-news-t-grid top-t-grid">
+							<ul class="list-group">
+							  <li class="list-group-item h2">Nomi : <span>{{movie.title}}</span> </li>
+							  <li class="list-group-item h2">Aktyorlar : 
+							  	<span>
+							  		{% for actor in movie.actors.all %}
+							  		<a href="{% url 'movie:actor_detail' actor.name %}">{{actor.name}},</a>
+							  		{% endfor %}
+								</span> 
+								</li>
+							  <li class="list-group-item h2">Davlati : <span>{{movie.country}}</span> </li>
+							  <li class="list-group-item h2">Jahondagi premyerasi : <span>{{movie.world_premiere}}</span> </li>
+							  <li class="list-group-item h2">Yili : <span>{{movie.year}}</span></li>
+							 <li class="list-group-item h2">Byudjeti : 
+								<span>$ {{movie.budget}}</span>
+							</li>
+							<li class="list-group-item h2">Bo'lim : 				<a href="{{movie.category.get_absolute_url}}">{{movie.category.name}}</a>						  		
+							</li>
+							<li class="list-group-item h2">Janri : 
+								{% for genre in movie.genres.all %}
+							  		<a href="#">{{genre.name}}</a>
+							  	{% endfor %}
+							</li>
+							</ul>										  
+
+						</div>
+								</div>
+							</div>
+						</div>
+					<h3>So'nggi qo'shilgan filmlar</h3>
+
+					<div class="single-grid-right">
+						{% for movie in lm %}
+						<div class="single-right-grids">
+							<div class="col-md-4 single-right-grid-left">
+								<a href="{{movie.get_absolute_url}}">
+									<img src="{{movie.poster.url}}" alt="" /></a>
+							</div>
+							<div class="col-md-8 single-right-grid-right">
+								<a href="{{movie.get_absolute_url}}" class="title">{{movie.title}}</a>
+								<p class="author"><a href="#" class="author">{{movie.country}}</a></p>
+							
+								{% for actor in movie.actors.all|slice:":5" %}
+								<p class="views">
+									<a href="{% url 'movie:actor_detail' actor.name %}">{{actor.name }}</a>
+								</p>
+								{% endfor %}
+
+								<p class="views">{{movie.world_premiere}}</p>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+
+						{% endfor %}
+
+						<div class="single-grid-right">
+	              			<h3 style="margin-bottom:15px;">Bo'limlar</h3>
+							<ul class="list-group">
+							{% for category in categories %}
+							  <li class="list-group-item d-flex justify-content-between align-items-center">
+							   {{category.name}}
+							    <span class="badge badge-primary badge-pill" style="color:white;">
+							    	{% if category %}
+							    		{{category|length}}
+							    	{% endif %}
+
+
+							    </span>
+							  </li>
+							{% endfor %}
+							</ul>				
+						</div>
+					</div>
+				</div>
+				</div>
+				<!-- //movie-browse-agile -->
+
+				<!--body wrapper start-->
+			<div class="w3_agile_banner_bottom_grid">
+				<div id="owl-demo" class="owl-carousel owl-theme">
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+							<a href="single.html" class="hvr-shutter-out-horizontal"><img src="images/m13.jpg" title="album-name" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">Citizen Soldier</a></h6>							
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+							<a href="single.html" class="hvr-shutter-out-horizontal"><img src="images/m11.jpg" title="album-name" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">X-Men</a></h6>							
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+							<a href="single.html" class="hvr-shutter-out-horizontal"><img src="images/m12.jpg" title="album-name" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">Greater</a></h6>							
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+							<a href="single.html" class="hvr-shutter-out-horizontal"><img src="images/m7.jpg" title="album-name" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">Light B/t Oceans</a></h6>							
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+							<a href="single.html" class="hvr-shutter-out-horizontal"><img src="images/m8.jpg" title="album-name" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">The BFG</a></h6>							
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+							<a href="single.html" class="hvr-shutter-out-horizontal"><img src="images/m9.jpg" title="album-name" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">Central Intelligence</a></h6>							
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+							<a href="single.html" class="hvr-shutter-out-horizontal"><img src="images/m10.jpg" title="album-name" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">Don't Think Twice</a></h6>							
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+							<a href="single.html" class="hvr-shutter-out-horizontal"><img src="images/m17.jpg" title="album-name" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">Peter</a></h6>							
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+							<a href="single.html" class="hvr-shutter-out-horizontal"><img src="images/m15.jpg" title="album-name" class="img-responsive" alt=" " />
+								<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+							</a>
+							<div class="mid-1 agileits_w3layouts_mid_1_home">
+								<div class="w3l-movie-text">
+									<h6><a href="single.html">God’s Compass</a></h6>							
+								</div>
+								<div class="mid-2 agile_mid_2_home">
+									<p>2016</p>
+									<div class="block-stars">
+										<ul class="w3l-ratings">
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+											<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+										</ul>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="ribben">
+								<p>NEW</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!--body wrapper end-->
+						
+							 
+				</div>
+				<!-- //w3l-latest-movies-grids -->
+			</div>	
+		</div>
+	<!-- //w3l-medile-movies-grids -->
+	
+{% endblock %}

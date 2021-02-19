@@ -1,0 +1,51 @@
+{% extends "../account_base.html" %}
+
+{% load i18n %}
+{% load account  %}
+
+{% block head_title %}{% trans "Yaxshi boring" %}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <center>
+    <h1>{% trans "Kirish" %}</h1>
+    <br>
+  <p>{% blocktrans %}Diqqat siz shaxsiy akkauntingizdan chiqyapsiz !
+  <a href="{{ signup_url }}"><b>Kirish</b> </a> .{% endblocktrans %}</p>
+  </center>
+  
+<br>
+<div class="w3_login_module">  
+      <div class="module form-module">
+        <div class="toggle"><i class="fa fa-times fa-pencil"></i>
+        
+        </div>
+        <div class="form">
+        <h3>Shaxsiy akkauntdan chiqish...</h3>
+      <form method="post" action="{% url 'account_logout' %}">
+		  {% csrf_token %}
+		  {% if redirect_field_value %}
+		  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+		  {% endif %}
+		  <button type="submit" class="cta">{% trans 'Chiqish' %}</button>
+		</form>
+        </div>
+      </div>
+    </div>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+{% endblock %}
+
+

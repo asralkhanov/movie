@@ -1,0 +1,56 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content  %}
+<div class="single-page-agile-main">
+<div class="general_social_icons">
+	<nav class="social">
+		<ul>
+			<li class="w3_twitter"><a href="#">Twitter <i class="fa fa-twitter"></i></a></li>
+			<li class="w3_facebook"><a href="#">Facebook <i class="fa fa-facebook"></i></a></li>
+			<li class="w3_dribbble"><a href="#">Dribbble <i class="fa fa-dribbble"></i></a></li>
+			<li class="w3_g_plus"><a href="#">Google+ <i class="fa fa-google-plus"></i></a></li>				  
+		</ul>
+  </nav>
+</div>	<style>
+
+	</style>
+	<div class="container">
+<div class="agileits-news-top">
+	<ol class="breadcrumb">
+	  <li><a href="{% url 'movie:movies_list' %} ">Bosh sahifa</a></li>
+	  <li class="active">Qidiruv natijalari</li>
+	</ol>
+</div>
+<div class="general">
+	<h4 class="latest-text w3_latest_text">Qidiruv natijalari</h4>
+	{% autoescape off%}
+		{% if object_list %}
+			
+					{% for movie in object_list %}
+					<div class="box">
+						<div class="media">
+						  <a href="{{movie.get_absolute_url}}" class="d-flex mr-3">
+						  	<img class="d-flex mr-3" src="{{movie.poster.url}}" >
+						  </a>
+						  <div class="media-body">
+						  	<a href="{{movie.get_absolute_url}}">
+						    	<h5 class="mt-0">{{movie.title}}</h5>
+							</a>
+						    {{movie.desc|truncatewords:25}}
+						  </div>
+						</div>
+					</div>
+					{% endfor %}
+					{% else %}
+
+					<div class="alert alert-danger">
+						<h1>Natijalar topilmadi !</h1>
+					</div>
+		{% endif %}
+	{% endautoescape %}
+				
+	</div>
+
+</div>
+</div>
+{% endblock %}

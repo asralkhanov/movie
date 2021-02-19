@@ -1,0 +1,47 @@
+{% extends "../account_base.html" %}
+
+{% load i18n %}
+{% load account  %}
+
+{% block head_title %}{% trans "Kirish" %}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <center>
+    <h1>{% trans "Ro'yhatdan o'tish" %}</h1>
+    <br>
+  <p>{% blocktrans %}Agar siz  ro'yhatdan o'tgan bo'lsangiz unda 
+  <a href="{{ signup_url }}"><b>bu yerga </b> </a> bosing.{% endblocktrans %}</p>
+  </center>
+  
+<br>
+<div class="w3_login_module">  
+      <div class="module form-module">
+        <div class="toggle"><i class="fa fa-times fa-pencil"></i>
+        
+        </div>
+        <div class="form">
+        <h3>Shaxsiy akkaunt ochish</h3>
+		      <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+		  {% csrf_token %}
+		  {{ form.as_p }}
+		  {% if redirect_field_value %}
+		  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+		  {% endif %}
+		  <button type="submit" class="cta">{% trans "Ro'yhatdan o'tish" %} &raquo;</button>
+		</form>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+

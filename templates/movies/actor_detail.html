@@ -1,0 +1,92 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+<!-- //nav -->
+
+<!-- faq-banner -->
+	<div class="faq">
+			<div class="container">
+				<div class="agileits-news-top">
+					<ol class="breadcrumb">
+					  <li><a href="{% url 'movie:movies_list' %}">Bosh sahifa</a></li>
+					  <li class="active">{{actor.name}}   haqida</li>
+					</ol>
+				</div>
+				<div class="agileinfo-news-top-grids">
+					<div class="col-md-9 wthree-top-news-left">
+						<div class="col-md-6">
+						 <div class="video-grid-single-page-agileits" style="width:100%; height:auto;" >
+							<div class="actor_image"> 
+							<img src="{{actor.image.url}}" alt="" class="img-responsive" /> 
+						</div>
+						</div>
+						</div>
+						<div class="col-md-6">
+							<div class="news-right-top">
+							<div class="wthree-news-right-heading">
+								<h3>Aktyor haqida</h3>
+							</div>
+							<style>					
+							
+							</style>
+							<div class="wthree-news-right-top">
+								<div class="news-grids-bottom">
+						<div class="w3ls-news-t-grid top-t-grid">
+							<ul class="list-group">
+							  <li class="list-group-item h2">Ismi : <span>{{actor.name}}</span> </li>
+							  <li class="list-group-item h2">Yoshi : <span>{{actor.age}}</span> </li>
+							  <li class="list-group-item h2">Millati : <span>{{actor.country}}</span> </li>
+							  <li class="list-group-item h2">Tug'ilgan sanasi : <span>{{actor.date_brt}}</span> </li>
+							  <li class="list-group-item h2">Tug'ilgan joyi : <span>{{actor.place_of_brt}}</span></li>
+							 <li class="list-group-item h2">Filmlari : 
+							  {% for movie in actor.film_actor.all %}
+
+								 <span class="p-1">
+								 	{{movie.title}},
+								 <a href=""></a>
+								</span> 
+							  {% endfor %}
+							</li>
+							</ul>										  
+
+						</div>
+								</div>
+							</div>
+						</div>
+						</div>
+					
+					</div>
+					<div class="col-md-3 wthree-news-right">
+						<!-- news-right-top -->
+						
+						<!-- //news-right-top -->
+						<!-- news-right-bottom -->
+						<div class="news-right-bottom">
+							<div class="wthree-news-right-heading">
+								<h3>Top News</h3>
+							</div>
+							<div class="news-right-bottom-bg">
+								<div class="news-grids-bottom">
+									<div class="top-news-grid">
+										<div class="top-news-grid-heading">
+											<a href="news-single.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean rutrum ac nulla</a>
+										</div>
+										<div class="w3ls-news-t-grid top-t-grid">
+											<ul>
+												<li><a href="#"><i class="fa fa-clock-o"></i> 1h</a></li>
+												<li><a href="#"><i class="fa fa-user"></i> Vivamus nibh</a></li>
+											</ul>
+										</div>
+									</div>
+								
+								</div>
+							</div>
+						</div>
+						<!-- //news-right-bottom -->
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+			</div>
+	</div>
+<!-- //faq-banner -->
+{% endblock %}
