@@ -1,0 +1,10 @@
+{% extends '../wrapper.html' %}
+{% load static %}
+{% block content %}
+
+	<center><h2><form action="" method="POST">
+		{% csrf_token %}
+		{{form.as_p}}
+		<input type="submit" value="Login" next="{{next}}">
+	</form></h2></center>
+{% endblock %}
