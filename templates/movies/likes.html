@@ -1,9 +1,0 @@
-{{ total_likes }} Like{{ total_likes|pluralize }}
-<form action="{% url 'movie:likes' %}" method="post">
-{% csrf_token %}
-{% if is_liked %}
-    <button type="submit" name="product_id" value="{{ movie.id }}" class="btn btn-like btn-danger">Dislike</button>
-{% else %}
-    <button type="submit" name="product_id" value="{{ movie.id }}" class="btn btn-like btn-primary">Like</button>
-{% endif %}
-</form>
