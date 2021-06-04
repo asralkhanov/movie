@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 # Create your models here.
 
 # *Category => name , slug
@@ -96,3 +96,39 @@ class Contact(models.Model):
 	class Meta:
 		verbose_name = 'Aloqa'
 		verbose_name_plural = 'Aloqalar'
+
+# Blog 
+
+class PostCategory(models.Model):
+	name = models.CharField('Post Category name', max_length=100)
+	slug = models.SlugField('*', max_length=100, unique=True)
+
+	def __str__(self):
+		return self.name
+
+	def get_absolute_url(self):
+		return  reverse('movie:category_posts', kwargs={'category_slug':self.slug})
+
+	class Meta:
+		verbose_name = 'Maqola Kategoriya'
+		verbose_name_plural = 'Maqolalar Kategoriyalari'
+
+class Post(models.Model):
+	title = models.CharField('Maqola nomi', max_length=450)
+	slug = models.SlugField('*', max_length=100, unique=True)
+	category = models.ForeignKey(
+		PostCategory, 
+		on_delete=models.CASCADE, 
+		related_name='categories'
+		)
+	body = models.TextField('Matni')
+	image = models.ImageField('Poster', upload_to='post_posters/')
+	author = models.CharField('Muallif', max_length=50)
+	published = models.DateTimeField("Qo'shilgan sana", auto_now_add=True)
+
+	def __str__(self):
+		return self.title
+
+	class Meta:
+		verbose_name = 'Maqola'
+		verbose_name_plural = 'Maqolalar'

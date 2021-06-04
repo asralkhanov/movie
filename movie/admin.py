@@ -28,3 +28,18 @@ class MovieAdmin(admin.ModelAdmin):
 
 admin.site.register(Comment)
 admin.site.register(Contact)
+
+#Blog 
+
+@admin.register(PostCategory)
+class CategoryPostAdmin(admin.ModelAdmin):
+	list_display = ['name','id']
+	list_display_links = ['name']
+	prepopulated_fields = {'slug':('name',)}
+
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+	list_display = ['title','id','category', 'author']
+	list_display_links = ['title']
+	prepopulated_fields = {'slug':('title',)}
