@@ -55,6 +55,7 @@ class Movie(models.Model):
 	genre = models.ForeignKey(Genre, on_delete=models.PROTECT, related_name='genres')
 	poster = models.ImageField('Poster', upload_to='movies/')
 	director = models.CharField('Rejissor', max_length=100)
+	trailer_link = models.CharField('You tube link', max_length=100)
 	actors = models.ForeignKey(Actors, on_delete=models.PROTECT, related_name='actors')
 	country = models.CharField('Davlati', max_length=100, blank=True)
 	year = models.PositiveIntegerField('Yili', default=2021)
@@ -121,6 +122,8 @@ class Post(models.Model):
 		on_delete=models.CASCADE, 
 		related_name='categories'
 		)
+	views = models.PositiveIntegerField('Views', default=0)
+	top = models.BooleanField('Top post', default=False)
 	body = models.TextField('Matni')
 	image = models.ImageField('Poster', upload_to='post_posters/')
 	author = models.CharField('Muallif', max_length=50)
@@ -132,3 +135,4 @@ class Post(models.Model):
 	class Meta:
 		verbose_name = 'Maqola'
 		verbose_name_plural = 'Maqolalar'
+		ordering = ['-id']
