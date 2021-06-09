@@ -30,7 +30,16 @@
 								<br>
 								<h4>{{object.title}}</h4>
 								<div class="s-author">
-									<p>Posted By <a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a> &nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i> June 2, 2016 &nbsp;&nbsp; <a href="#"><i class="fa fa-comments" aria-hidden="true"></i> Comments (10)</a></p>
+									<p>Posted By <a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a> &nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i> June 2, 2016 &nbsp;&nbsp; <a href="#"><i class="fa fa-comments" aria-hidden="true"></i> Comments (10)</a>
+										<ul>
+											{% for tag in post.tag.all %}
+												<li>
+													<a href="{{tag.get_absolute_url}}">
+														{{tag.name}}
+													</a>
+												</li>
+											{% endfor %}
+										</ul></p>
 								</div>
 								<div id="fb-root"></div>
 								<div class="news-shar-buttons">

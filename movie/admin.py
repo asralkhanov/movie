@@ -29,6 +29,7 @@ class MovieAdmin(admin.ModelAdmin):
 admin.site.register(Comment)
 admin.site.register(Contact)
 
+
 #Blog 
 
 @admin.register(PostCategory)
@@ -36,6 +37,13 @@ class CategoryPostAdmin(admin.ModelAdmin):
 	list_display = ['name','id']
 	list_display_links = ['name']
 	prepopulated_fields = {'slug':('name',)}
+
+@admin.register(Tags)
+class TagAdmin(admin.ModelAdmin):
+	list_display = ['name','id']
+	list_display_links = ['name']
+	prepopulated_fields = {'slug':('name',)}
+
 
 
 @admin.register(Post)

@@ -11,5 +11,9 @@ urlpatterns = [
 	#News url 
 	path('posts/', views.AllPostView.as_view(), name='posts'),
 	path('post/<slug:slug>', views.PostDetailView.as_view(), name='post_detail'),
-	path('posts/<slug:category_slug>', views.getCatPost, name='category_posts')
+	path('posts/<slug:category_slug>', views.getCatPost, name='category_posts'),
+	path('tags/<slug:tag_slug>', views.getTagPost, name='tag_posts'),
+
+	#Genres and Ctegories
+	path('janr/<slug:genre>', views.genreDetail, name='genre_detail'),
 ]

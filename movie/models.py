@@ -28,6 +28,9 @@ class Genre(models.Model):
 	def __str__(self):
 		return self.name
 
+	def get_absolute_url(self):
+		return reverse('movie:genre_detail', kwargs={'genre':self.slug})
+
 	class Meta:
 		verbose_name = 'Janr'
 		verbose_name_plural = 'Janrlar'
@@ -114,14 +117,30 @@ class PostCategory(models.Model):
 		verbose_name = 'Maqola Kategoriya'
 		verbose_name_plural = 'Maqolalar Kategoriyalari'
 
+
+class Tags(models.Model):
+	name = models.CharField('Post Tag name', max_length=100)
+	slug = models.SlugField('*', max_length=100, unique=True)
+
+	def __str__(self):
+		return self.name
+
+	def get_absolute_url(self):
+		return  reverse('movie:tag_posts', kwargs={'tag_slug':self.slug})
+
+	class Meta:
+		verbose_name = 'Maqola Tegi'
+		verbose_name_plural = 'Maqolalar Teglari'
+
 class Post(models.Model):
 	title = models.CharField('Maqola nomi', max_length=450)
 	slug = models.SlugField('*', max_length=100, unique=True)
 	category = models.ForeignKey(
 		PostCategory, 
 		on_delete=models.CASCADE, 
-		related_name='categories'
+		related_name='posts'
 		)
+	tag = models.ManyToManyField(Tags, related_name='posts')
 	views = models.PositiveIntegerField('Views', default=0)
 	top = models.BooleanField('Top post', default=False)
 	body = models.TextField('Matni')

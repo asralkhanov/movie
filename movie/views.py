@@ -40,5 +40,22 @@ class PostDetailView(DetailView):
 
 def getCatPost(request,category_slug):
 	category = PostCategory.objects.get(slug=category_slug)
-	posts = category.categories.all()
+	posts = category.posts.all
 	return render(request, 'cat_post.html', {'posts':posts})
+
+def getTagPost(request,tag_slug):
+	tag = Tags.objects.get(slug=tag_slug)
+	posts = tag.posts.all()
+	return render(request, 'cat_post.html', {'posts':posts})
+
+
+
+# Genres And Categories
+
+def genreDetail(request, genre):
+	genre = get_object_or_404(Genre, slug=genre)
+	movie = Movie.objects.filter(genre=genre)
+	context = {
+		'movie':movie
+	}
+	return render(request, 'genres.html', context)
