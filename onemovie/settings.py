@@ -23,9 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$f58042*c26zdesg#ugaen!pb+vz-fsupmqe^7=wz-rjo)(its'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+TEMPLATE_DEBUG = False
+DEBUG = TEMPLATE_DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 #Login and Logout settings
 LOGIN_URL = '/accounts/login/'
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # default app for movies
     'movie',
+    'social_django',
     # social accounts
     # 'social.apps.django_app.default',
 
@@ -77,6 +79,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+
                 # 'social.apps.django_app.context_processors.backends',
                 # 'social.apps.django_app.context_processors.login_redirect',
             ],
@@ -99,11 +104,15 @@ DATABASES = {
 
 
 AUTHENTICATION_BACKENDS = (
-    # 'social.backends.facebook.FacebookOAuth2',
-    # 'social.backends.google.GoogleOAuth2',
-    # 'social.backends.twitter.TwitterOAuth',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth',
+
     'django.contrib.auth.backends.ModelBackend',
 )
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '202337754756-icucttcvhtkblu89jbbpb7dclied6pqp.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'H341A6R-nvPZI0UDm44NJqyO'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

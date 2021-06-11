@@ -59,3 +59,23 @@ def genreDetail(request, genre):
 		'movie':movie
 	}
 	return render(request, 'genres.html', context)
+
+
+def search(request):
+	q = request.GET.get('search', None)
+	movies = Movie.objects.filter(title__icontains=q)
+	posts = Post.objects.filter(title__icontains=q)
+	total_results = len(movies) + len(posts)
+	query = request.GET['search']
+	context = {
+		'movies':movies,
+		'posts':posts,
+		'total_results':total_results,
+		'query':query
+	}
+	return render(request, 'searchResult.html', context)
+
+# Errors 
+
+def customHandler404(request, exception=None):
+	return render(request, '404.html')

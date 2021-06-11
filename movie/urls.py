@@ -16,4 +16,7 @@ urlpatterns = [
 
 	#Genres and Ctegories
 	path('janr/<slug:genre>', views.genreDetail, name='genre_detail'),
+
+	#Search  and other utils
+	path('search/', views.search, name='search'),
 ]

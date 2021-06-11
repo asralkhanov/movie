@@ -23,7 +23,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('', include('movie.urls', namespace='movie')),
+    path('', include('social_django.urls', namespace='social'))
 ]
+
+handler404 = 'movie.views.customHandler404'
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,  document_root=settings.STATIC_ROOT)
