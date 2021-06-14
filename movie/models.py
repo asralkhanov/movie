@@ -51,6 +51,9 @@ class Actors(models.Model):
 		verbose_name = 'Aktyor'
 		verbose_name_plural = 'Aktyorlar'
 
+# class Rating(models.Model):
+
+
 
 class Movie(models.Model):
 	title = models.CharField('Kino nomi', max_length=250)
@@ -63,6 +66,8 @@ class Movie(models.Model):
 	country = models.CharField('Davlati', max_length=100, blank=True)
 	year = models.PositiveIntegerField('Yili', default=2021)
 	budget = models.PositiveIntegerField('Byudjet', default=0)
+	rating = models.DecimalField('Reyting',max_digits=5, decimal_places=2)
+	views = models.PositiveIntegerField('Korildi', default=0)
 
 
 	def __str__(self):

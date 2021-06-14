@@ -2,14 +2,32 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
 from django.views.generic import ListView, DetailView
 from .models import *
+
+from .forms import MovieRatingForm
 # Create your views here.
 
 
 class HomePageView(View):
 	# Home Page Movies View
 	def get(self,request):
+		form = MovieRatingForm(request.GET)
+		if form.is_valid():
+			form.save()
+		else:
+			form = MovieRatingForm()
 		movie = Movie.objects.all()
-		return render(request, 'index.html', {'movies':movie})
+
+		top_viewed = Movie.objects.all().order_by('-views')[:2]
+		recent_add = Movie.objects.all().order_by('-id')[:10]
+		random_movies = Movie.objects.all().order_by('?')[:2]
+		context = {
+			'top_viewed':top_viewed,
+			'movies':movie,
+			'recent_add':recent_add,
+			'random_movies':random_movies,
+			'form':form
+		}
+		return render(request, 'index.html', context)
 
 
 class MovieDetailView(DetailView):
